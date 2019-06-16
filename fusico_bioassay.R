@@ -18,35 +18,36 @@ datafusamy<-read.table("data/fusicodat.txt",header=TRUE,sep="\t")
 ###############################################################################
 
 #first we extract the list of the different SA listed in the file
-SAlist<-levels(datamyc$pest_sa_id)
+SAlist<-levels(datafusamy$active_substance)
 CompRez<-data.frame(Subs_Act=factor(),sample_ID=factor(),
                     ED50=character())
 #we make a subselection of the data according to the SA
 for (j in 1:length(SAlist)) {
-  data_subSA<-datamyc[datamyc$pest_sa_id==SAlist[j],]
+  data_subSA<-datafusamy[datafusamy$active_substance==SAlist[j],]
   
   #some individual never reach an inhibition of 50%, event for the highest 
   #tested concentration. 
   SA_rez<-as.character(data_subSA[data_subSA$dose==max(data_subSA$dose) 
-                                  & data_subSA$rslt_03>50,
-                                  "ech_id"])
+                                  & data_subSA$perc_croiss>50,
+                                  "strain_ID"])
   ifelse(length(SA_rez)==0,
          REZSA<-data.frame(Subs_Act=factor(),sample_ID=factor(),
                            ED50=character()),
          REZSA<-data.frame("Subs_Act"=SAlist[j],"sample_ID"=SA_rez,
                            "ED50"=paste(">",max(data_subSA$dose),sep="")))
   #we limit the dataset to the sample that reach somehow a IC of 50%
-  SA.dat<-data_subSA[!(data_subSA$ech_id %in% SA_rez),]
+  SA.dat<-data_subSA[!(data_subSA$strain_ID %in% SA_rez),]
   SA.dat<-drop.levels(SA.dat)
-  for (i in 1:dim(table(SA.dat$ech_id))[1]) {
-    temp.m1<-drm(rslt_03~dose,
-                 data=SA.dat[SA.dat$ech_id==names(table(SA.dat$ech_id))[i],],
+  for (i in 1:dim(table(SA.dat$strain_ID))[1]) {
+    temp.m1<-drm(perc_croiss~dose,
+                 data=SA.dat[SA.dat$strain_ID==
+                               names(table(SA.dat$strain_ID))[i],],
                  fct=LL.4())
-    plot(temp.m1,main=names(table(SA.dat$ech_id))[i],
+    plot(temp.m1,main=names(table(SA.dat$strain_ID))[i],
          ylim=c(0,110),xlim=c(0,50))
     temp<-ED(temp.m1,50,type="absolute")
     tempx<-data.frame("Subs_Act"=SAlist[j],
-                      "sample_ID"=names(table(SA.dat$ech_id))[i],
+                      "sample_ID"=names(table(SA.dat$strain_ID))[i],
                       "ED50"=as.character(temp[1]))
     REZSA<-rbind(REZSA,tempx)
   }
@@ -55,7 +56,7 @@ for (j in 1:length(SAlist)) {
 }
 
 #exporting the result as a text file
-write.table(CompRez, file="output/results_cerco.txt",
+write.table(CompRez, file="output/results_fusico.txt",
             sep="\t",quote=FALSE,row.names=FALSE)
 
 #just a small graphic to gain insight on the first round of results
@@ -65,6 +66,10 @@ CompRez$ED50<-as.numeric(as.character(CompRez$ED50))
 CompRez[is.na(CompRez$ED50),"ED50"]<-10000
 barplot(as.numeric(as.character(CompRez$ED50)),
         ylim=c(0,50),col=CompRez$Subs_Act)
+
+
+plot(sort(as.numeric(as.character(CompRez[CompRez$Subs_Act=="carbendazim",]$ED50))))
+plot(sort(as.numeric(as.character(CompRez[CompRez$Subs_Act=="diethofencarb",]$ED50))))
 
 
 ###############################################################################
