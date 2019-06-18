@@ -64,6 +64,7 @@ op<-par(mar=c(0,0,1,0))
 
 #map summarizing the resistant and not resistant populations by department
 temp<-datafuspop
+colovec<-c(brewer.pal(9,"Blues")[6],brewer.pal(9,"Reds")[6])
 #first we list the indices of the sampled department
 ind_list<-which(departe@data$INSEE_DEP %in% 
                   colnames(table(temp$carbend_R,temp$departement)))
@@ -86,14 +87,17 @@ plot(departe,border="grey60",lwd=0.1,main="")
 plot(regions,add=TRUE,lwd=1.5)
 draw.pie(x=coorddep$longitude,y=coorddep$latitude,
          z=cbind(coorddep$nonR,coorddep$Res),
-         col=c("blue","red"),
-         radius=(sqrt(coorddep$nb_fields)*16000),labels=NA)
+         col=colovec,
+         radius=(sqrt(coorddep$nb_fields)*18000),labels=NA,
+         border="NA")
+text(x=coorddep$longitude,y=coorddep$latitude,col="black",font=2,
+     labels=as.character(coorddep$nb_fields),cex=1.5)
 
 scalebar(c(191257.6,6080001),300000,"km",division.cex=1)
 
 par(op)
 
-#export pdf 10 x 6 inches
+#export pdf 6 x 6 inches
 
 
 ###############################################################################

@@ -12,7 +12,7 @@ library(mapplots)
 library(rgeos)
 library(drc)
 library(gdata)
-
+library(RColorBrewer)
 
 ###############################################################################
 #loading the geographical data
