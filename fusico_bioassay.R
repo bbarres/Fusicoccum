@@ -4,13 +4,8 @@
 ###############################################################################
 ###############################################################################
 
-#loading the packages necessary for the analysis
-library(drc)
-library(plotrix)
-library(gdata)
-
 #loading the data
-datafusamy<-read.table("data/fusicodat.txt",header=TRUE,sep="\t")
+source("load_fusico_data.R")
 
 
 ###############################################################################
