@@ -2,5 +2,5 @@
 Supporting code and data for the related article
 
 
-![alt text](https://1drv.ms/u/s!ArkGaUfmHT_MhIJiA3sOoUGerkOYug)
+![alt text](https://y9xjpa.db.files.1drv.com/y4mpjcgFHlzSPQzhQNV-dAkypEx7uWgJhPxL6MraJDeaIrM-2RuAwYTpqu6gxKuqMRb9SuyCU4qQntQUYMi3VF9MkovXWgC_P5rG5ny6lLdKjXJBjVdPkGUuy3TLdyJC6jCzGDkk2SOaGWwlQCHLn-uyF7zSROc9SEcCcHqbh9OSCh2vv6eWVhUQ-vt5FdOrxCRxSXRJ_c1xKVKZtnYyOViXw?width=1584&height=588&cropmode=none)
 
