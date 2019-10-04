@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/190763363.svg)](https://zenodo.org/badge/latestdoi/190763363)
+
 # Supporting code and data for: Report of a new resistance to carbendazim in Fusicoccum amygdali, the causal agent of constriction canker of peach and almond trees
 
 
