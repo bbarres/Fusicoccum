@@ -42,7 +42,7 @@ for (j in 1:length(SAlist)) {
                  fct=LL.3())
     plot(temp.m1,main=names(table(SA.dat$strain_ID))[i],
          ylim=c(0,120),xlim=c(0,150))
-    temp<-ED(temp.m1,50,type="absolute")
+    temp<-ED(temp.m1,c(50,0.01),type="absolute")
     tempx<-data.frame("Subs_Act"=SAlist[j],
                       "sample_ID"=names(table(SA.dat$strain_ID))[i],
                       "ED50"=as.character(temp[1]),
