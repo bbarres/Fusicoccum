@@ -39,7 +39,7 @@ for (j in 1:length(SAlist)) {
     temp.m1<-drm(perc_croiss~dose,
                  data=SA.dat[SA.dat$strain_ID==
                                names(table(SA.dat$strain_ID))[i],],
-                 fct=LL.4())
+                 fct=LL.3())
     plot(temp.m1,main=names(table(SA.dat$strain_ID))[i],
          ylim=c(0,120),xlim=c(0,150))
     temp<-ED(temp.m1,50,type="absolute")
@@ -76,12 +76,12 @@ plot(sort(as.numeric(as.character(
 
 datafusamyIND<-datafusamy[datafusamy$strain_type=="individual",]
 #first we extract the list of the different SA listed in the file
-SAlist<-levels(datafusamy$active_substance)
+SAlist<-levels(datafusamyIND$active_substance)
 CompRez<-data.frame(Subs_Act=factor(),sample_ID=factor(),
                     ED50=character(),STERR=character())
 #we make a subselection of the data according to the SA
 for (j in 1:length(SAlist)) {
-  data_subSA<-datafusamy[datafusamy$active_substance==SAlist[j],]
+  data_subSA<-datafusamyIND[datafusamyIND$active_substance==SAlist[j],]
   
   #some individual never reach an inhibition of 50%, event for the highest 
   #tested concentration. 
@@ -102,8 +102,9 @@ for (j in 1:length(SAlist)) {
                  data=SA.dat[SA.dat$strain_ID==
                                names(table(SA.dat$strain_ID))[i],],
                  fct=LL.4())
-    plot(temp.m1,main=names(table(SA.dat$strain_ID))[i],
-         ylim=c(0,120),xlim=c(0,150))
+    plot(temp.m1,ylim=c(0,120),xlim=c(0,150),
+         main=paste(SAlist[j],names(table(SA.dat$strain_ID))[i]),
+         col.main=j)
     temp<-ED(temp.m1,50,type="absolute")
     tempx<-data.frame("Subs_Act"=SAlist[j],
                       "sample_ID"=names(table(SA.dat$strain_ID))[i],
@@ -116,7 +117,7 @@ for (j in 1:length(SAlist)) {
 }
 
 #exporting the result as a text file
-write.table(CompRez, file="output/results_fusico.txt",
+write.table(CompRez, file="output/results_fusicoIND.txt",
             sep="\t",quote=FALSE,row.names=FALSE)
 
 #just a small graphic to gain insight on the first round of results
