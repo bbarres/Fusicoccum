@@ -87,9 +87,9 @@ plot(departe,border="grey60",lwd=0.1,main="")
 plot(regions,add=TRUE,lwd=1.5)
 draw.pie(x=coorddep$longitude,y=coorddep$latitude,
          z=cbind(coorddep$nonR,coorddep$Res),
-         col=colovec,
-         radius=(sqrt(coorddep$nb_fields)*18000),labels=NA,
-         border="NA")
+         col=colovec,lty=0,
+         radius=(sqrt(coorddep$nb_fields)*22000),
+         labels=NA)
 text(x=coorddep$longitude,y=coorddep$latitude,col="black",font=2,
      labels=as.character(coorddep$nb_fields),cex=1.5)
 
