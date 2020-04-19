@@ -60,8 +60,6 @@ northarrow <- function(loc,size,bearing=0,cols,cex=1,...) {
 #Sampling site and resistance status of the sampled populations####
 ##############################################################################/
 
-op<-par(mar=c(0,0,1,0))
-
 #map summarizing the resistant and not resistant populations by department
 temp<-datafuspop
 colovec<-c(brewer.pal(9,"Blues")[6],brewer.pal(9,"Reds")[6])
@@ -83,18 +81,19 @@ coorddep<-cbind(coorddep,"Res"=table(temp$carbend_R,temp$departement)[1,],
                   rep(0,dim(table(temp$carbend_R,temp$departement))[2])
                 else table(temp$carbend_R,temp$departement)[2,],
                 "nb_fields"=colSums(table(temp$carbend_R,temp$departement)))
-plot(departe,border="grey60",lwd=0.1,main="")
-plot(regions,add=TRUE,lwd=1.5)
+
+#actual plotting
+op<-par(mar=c(0,0,1,0))
+plot(departe,border="grey80",lwd=0.8,main="")
+plot(regions,add=TRUE,lwd=2)
 draw.pie(x=coorddep$longitude,y=coorddep$latitude,
          z=cbind(coorddep$nonR,coorddep$Res),
          col=colovec,lty=0,
          radius=(sqrt(coorddep$nb_fields)*22000),
          labels=NA)
 text(x=coorddep$longitude,y=coorddep$latitude,col="black",font=2,
-     labels=as.character(coorddep$nb_fields),cex=1.5)
-
-scalebar(c(191257.6,6080001),300000,"km",division.cex=1)
-
+     labels=as.character(coorddep$nb_fields),cex=1.3)
+scalebar(c(191260,6060000),300000,"km",division.cex=1)
 par(op)
 
 #export pdf 6 x 6 inches
