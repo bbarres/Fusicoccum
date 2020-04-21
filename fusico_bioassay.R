@@ -17,6 +17,7 @@ datafusamyPOP<-datafusamy[datafusamy$strain_type=="population",]
 SAlist<-levels(datafusamyPOP$active_substance)
 CompRezPOP<-data.frame(Subs_Act=factor(),sample_ID=factor(),
                     ED50=character(),STERR=character())
+recap.mod<-list()
 #we make a subselection of the data according to the SA
 for (j in 1:length(SAlist)) {
   data_subSA<-datafusamyPOP[datafusamyPOP$active_substance==SAlist[j],]
@@ -53,7 +54,7 @@ for (j in 1:length(SAlist)) {
                       "ED99.9"=as.character(temp[2,1]),
                       "STERR"=as.character(temp[2,2]))
     REZSA<-rbind(REZSA,tempx)
-    recap.mod<-list(recap.mod,temp.m1)
+    recap.mod<-c(recap.mod,temp.m1)
   }
   CompRezPOP<-rbind(CompRezPOP,REZSA)
   
@@ -70,7 +71,10 @@ data_subSA<-datafusamyPOP[datafusamyPOP$active_substance=="carbendazim",]
 temp.m1<-drm(perc_croiss~dose,
              data=data_subSA,curveid=strain_ID,
              fct=LN.3())
-plot(temp.m1,xlim=c(0,150))
+plot(temp.m1,xlim=c(0,150),lwd=2)
+summary(temp.m1)
+modelFit(temp.m1)
+compParm(temp.m1,"e")
 temp<-ED(temp.m1,c(50,0.1),type="absolute")
 
 
