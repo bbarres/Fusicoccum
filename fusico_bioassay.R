@@ -70,12 +70,14 @@ data_subSA<-datafusamyPOP[datafusamyPOP$active_substance=="carbendazim",]
 #simplier way of doing approximately the same thing
 temp.m1<-drm(perc_croiss~dose,
              data=data_subSA,curveid=strain_ID,
-             fct=LN.3())
-plot(temp.m1,xlim=c(0,150),lwd=2)
+             fct=LN.4())
+plot(temp.m1,xlim=c(0,150),lwd=2,col=c(1,1,1,1,2,1,1,1))
 summary(temp.m1)
 modelFit(temp.m1)
 compParm(temp.m1,"e")
 temp<-ED(temp.m1,c(50,0.1),type="absolute")
+
+#export to .pdf 6 x 6 inches
 
 
 #just a small graphic to gain insight on the first round of results first, 
@@ -137,6 +139,8 @@ for (j in 1:length(SAlist)) {
   
 }
 
+#adding a column for the population the individuals were isolated from
+CompRez<-data.frame(CompRez,"popID"=as.factor(substr(CompRez$sample_ID,1,7)))
 #exporting the result as a text file
 write.table(CompRez, file="output/results_fusicoIND.txt",
             sep="\t",quote=FALSE,row.names=FALSE)
@@ -146,9 +150,13 @@ write.table(CompRez, file="output/results_fusicoIND.txt",
 #range used with an absurdly high value
 CompRez$ED50<-as.numeric(as.character(CompRez$ED50))
 CompRez[is.na(CompRez$ED50),"ED50"]<-100
-plot(sort(as.numeric(as.character(
-  CompRez[CompRez$Subs_Act=="carbendazim",]$ED50))),
-  log="y",las=1,ylim=c(0.01,100))
+CompRez<-CompRez[sort(as.numeric(as.character(
+  CompRez[CompRez$Subs_Act=="carbendazim",]$ED50))),]
+
+plot(CompRez[CompRez$Subs_Act=="carbendazim",]$ED50,
+  log="y",las=1,ylim=c(0.01,100),xlab="isolates",
+  ylab="ED50 (mg/l)",col=CompRez$popID)
+
 plot(sort(as.numeric(as.character(
   CompRez[CompRez$Subs_Act=="diethofencarb",]$ED50))),
   log="y",las=1,ylim=c(0.01,100))
