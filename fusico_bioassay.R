@@ -124,7 +124,7 @@ for (j in 1:length(SAlist)) {
     temp.m1<-drm(perc_croiss~dose,
                  data=SA.dat[SA.dat$strain_ID==
                                names(table(SA.dat$strain_ID))[i],],
-                 fct=LN.3())
+                 fct=LN.4())
     plot(temp.m1,ylim=c(0,120),xlim=c(0,150),
          main=paste(SAlist[j],names(table(SA.dat$strain_ID))[i]),
          col.main=j)
@@ -150,12 +150,30 @@ write.table(CompRez, file="output/results_fusicoIND.txt",
 #range used with an absurdly high value
 CompRez$ED50<-as.numeric(as.character(CompRez$ED50))
 CompRez[is.na(CompRez$ED50),"ED50"]<-100
-CompRez<-CompRez[sort(as.numeric(as.character(
+CompRez$STERR<-as.numeric(as.character(CompRez$STERR))
+CompRez[is.na(CompRez$STERR),"STERR"]<-0
+
+
+
+CompRez<-CompRez[order(as.numeric(as.character(
   CompRez[CompRez$Subs_Act=="carbendazim",]$ED50))),]
 
 plot(CompRez[CompRez$Subs_Act=="carbendazim",]$ED50,
   log="y",las=1,ylim=c(0.01,100),xlab="isolates",
-  ylab="ED50 (mg/l)",col=CompRez$popID)
+  ylab="ED50 (mg/l)",col=CompRez$popID,
+  pch=c(19,19,19,22)[CompRez$popID])
+
+plotCI(c(1:63),
+       CompRez[CompRez$Subs_Act=="carbendazim",]$ED50,
+       ui=CompRez[CompRez$Subs_Act=="carbendazim",]$ED50+
+         CompRez[CompRez$Subs_Act=="carbendazim",]$STERR,
+       li=CompRez[CompRez$Subs_Act=="carbendazim",]$ED50-
+         CompRez[CompRez$Subs_Act=="carbendazim",]$STERR,
+       #ui=results$IC_up[results$sex=="female"],
+       #li=results$IC_low[results$sex=="female"],
+       add=TRUE,cex=0.1,pch=21,col=rgb(0,0,0,1),pt.bg=rgb(0.7,0.7,0.7,1),
+       gap=0.00)
+
 
 plot(sort(as.numeric(as.character(
   CompRez[CompRez$Subs_Act=="diethofencarb",]$ED50))),
