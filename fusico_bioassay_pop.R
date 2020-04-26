@@ -32,7 +32,7 @@ write.table(result_pop, file="output/results_fusicoPOP.txt",
 
 
 ##############################################################################/
-#Figure 1: regression curves for the ####
+#Figure 1: regression curves for the population bioassays with carbendazim####
 ##############################################################################/
 
 op<-par(mar=c(6,7,2,1))
