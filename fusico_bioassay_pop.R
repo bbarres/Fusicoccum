@@ -36,7 +36,7 @@ write.table(result_pop, file="output/results_fusicoPOP.txt",
 ##############################################################################/
 
 op<-par(mar=c(6,7,2,1))
-colov<-c(grey(0),"indianred1")
+colov<-c("black","indianred1")
 plot(temp.m1,xlim=c(0,200),lwd=1.7,col=colov[c(1,1,1,1,2,1,1,1)],
      bty="n",axes=FALSE,ann=FALSE,legend=FALSE)
 legend(5,133,col=colov[c(1,1,1,1,2,1,1,1)],

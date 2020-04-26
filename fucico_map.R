@@ -62,7 +62,8 @@ northarrow <- function(loc,size,bearing=0,cols,cex=1,...) {
 
 #map summarizing the resistant and not resistant populations by department
 temp<-datafuspop
-colovec<-c(brewer.pal(9,"Blues")[6],brewer.pal(9,"Reds")[6])
+#colovec<-c(brewer.pal(9,"Blues")[6],brewer.pal(9,"Reds")[6])
+colovec<-c("black","indianred1")
 #first we list the indices of the sampled department
 ind_list<-which(departe@data$INSEE_DEP %in% 
                   colnames(table(temp$carbend_R,temp$departement)))
@@ -91,7 +92,7 @@ draw.pie(x=coorddep$longitude,y=coorddep$latitude,
          col=colovec,lty=0,
          radius=(sqrt(coorddep$nb_fields)*22000),
          labels=NA)
-text(x=coorddep$longitude,y=coorddep$latitude,col="black",font=2,
+text(x=coorddep$longitude,y=coorddep$latitude,col="white",font=2,
      labels=as.character(coorddep$nb_fields),cex=1.3)
 scalebar(c(191260,6060000),300000,"km",division.cex=1)
 par(op)
