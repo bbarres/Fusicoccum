@@ -23,16 +23,37 @@ temp.m1<-drm(perc_croiss~dose,
 summary(temp.m1)
 compParm(temp.m1,"e")
 result_pop<-ED(temp.m1,c(50),type="absolute")
+result_pop<-data.frame("pop_ID"=sort(levels(datafusamyPOP$strain_ID)),
+                       result_pop)
+
+#exporting the result as a text file
+write.table(result_pop, file="output/results_fusicoPOP.txt",
+            sep="\t",quote=FALSE,row.names=FALSE)
 
 
 ##############################################################################/
 #Figure 1: regression curves for the ####
 ##############################################################################/
 
-plot(temp.m1,xlim=c(0,150),lwd=2,col=c(1,1,1,1,2,1,1,1))
+op<-par(mar=c(6,7,2,1))
+colov<-c(grey(0),"indianred1")
+plot(temp.m1,xlim=c(0,200),lwd=1.7,col=colov[c(1,1,1,1,2,1,1,1)],
+     bty="n",axes=FALSE,ann=FALSE,legend=FALSE)
+legend(5,133,col=colov[c(1,1,1,1,2,1,1,1)],
+       legend=levels(as.factor(temp.m1$parNames[[3]])),
+       lty=c(1:8),lwd=1.7,pch=c(1:8),bty="n")
+box(lwd=2.5,lty=1)
+axis(1,at=c(0.001,0.01,0.1,1,10,100),
+     labels=c("0","0.01","0.1","1","10","100"),
+     cex.axis=1.5,font.axis=2,lwd.ticks=2)
+axis(2,at=c(0,20,40,60,80,100,120),
+     labels=c("0","20","40","60","80","100","120"),
+     cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
+title(xlab="Dose (mg/l)",ylab="Relative % of germination",
+      cex.lab=2,font.lab=2,line=4)
+par(op)
 
-
-#export to .pdf 6 x 6 inches
+#export to .pdf 6.5 x 6 inches
 
 
 ##############################################################################/
@@ -83,20 +104,8 @@ for (j in 1:length(SAlist)) {
 }
 
 #exporting the result as a text file
-write.table(CompRezPOP, file="output/results_fusicoPOP.txt",
+write.table(CompRezPOP, file="output/results_fusicoPOP2.txt",
             sep="\t",quote=FALSE,row.names=FALSE)
-
-#just a small graphic to gain insight on the first round of results first, 
-#we replace the ED50 that were too high to be evaluated with the dose range 
-#used with an absurdly high value
-CompRezPOP$ED50<-as.numeric(as.character(CompRezPOP$ED50))
-CompRezPOP[is.na(CompRezPOP$ED50),"ED50"]<-100
-barplot(as.numeric(as.character(CompRezPOP$ED50)),
-        ylim=c(0,50),col=CompRezPOP$Subs_Act)
-
-plot(sort(as.numeric(as.character(
-  CompRezPOP[CompRezPOP$Subs_Act=="carbendazim",]$ED50))),
-  ylog=TRUE)
 
 
 ##############################################################################/
