@@ -9,7 +9,7 @@ source("load_fusico_data.R")
 
 
 ##############################################################################/
-#Regression analysis of mycelial growth experiment for isolates####
+#Regression analysis: carbendazim mycelial growth experiment for isolates####
 ##############################################################################/
 
 datafusamyIND<-datafusamy[datafusamy$strain_type!="population",]
@@ -60,36 +60,63 @@ CompRez<-data.frame(CompRez,"popID"=as.factor(substr(CompRez$sample_ID,1,7)))
 write.table(CompRez, file="output/results_fusicoIND.txt",
             sep="\t",quote=FALSE,row.names=FALSE)
 
-#just a small graphic to gain insight on the first round of results
-#first, we replace the ED50 that were too high to be evaluated with the dose 
-#range used with an absurdly high value
+
+##############################################################################/
+#Figure 2: Distribution of the carbendazim ED50 on isolates (myc. growth)####
+##############################################################################/
+
+#preparing the dataset, first we replace impossible value to compute by 
+#the highest dose used in the bioassay
 CompRez$ED50<-as.numeric(as.character(CompRez$ED50))
 CompRez[is.na(CompRez$ED50),"ED50"]<-100
 CompRez$STERR<-as.numeric(as.character(CompRez$STERR))
 CompRez[is.na(CompRez$STERR),"STERR"]<-0
 
-
 carbenfi<-CompRez[order(as.numeric(as.character(
   CompRez[CompRez$Subs_Act=="carbendazim",]$ED50))),]
-
-plot(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
-     log="y",las=1,ylim=c(0.005,100),xlab="isolates",
-     ylab="ED50 (mg/l)",col=carbenfi$popID,
-     pch=c(19,19,19,22)[carbenfi$popID])
-
+#computing the values for the whiskers
 posi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50+
   carbenfi[carbenfi$Subs_Act=="carbendazim",]$STERR
 negi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50-
   carbenfi[carbenfi$Subs_Act=="carbendazim",]$STERR
+#because we can't plot CI that reach negative values in a plot 
+#with a log y-axes, we replace negative value by a very small value
+negi[negi<0]<-0.001
 
+#actual plotting
+op<-par(mar=c(6,6,2,1))
+colov<-c("black","indianred1","black","dodgerblue")
+plot(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
+     log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
+     ann=FALSE,col=colov[carbenfi$popID],
+     bg=c("black","white","white","dodgerblue")[carbenfi$popID],
+     pch=c(22,22,24,21)[carbenfi$popID],cex=1.5)
+legend(1,130,col=colov,cex=1.5,x.intersp=0.5,
+       legend=levels(carbenfi$popID),
+       pch=c(15,22,2,19),bty="n")
+box(lwd=2.5,lty=1)
+axis(1,at=c(0,10,20,30,40,50,60),
+     labels=c("0","10","20","30","40","50","60"),
+     cex.axis=1.5,font.axis=2,lwd.ticks=2)
+axis(2,at=c(0.01,0.1,1,10,100),
+     labels=c("0.01","0.1","1","10","100"),
+     cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
+title(xlab="Isolates arranged by ED50 ascending order",
+      ylab="ED50 (mg/l)",
+      cex.lab=1.8,font.lab=2,line=3.5)
 plotCI(c(1:63),
        carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
        ui=posi,
        li=negi,
-       #ui=results$IC_up[results$sex=="female"],
-       #li=results$IC_low[results$sex=="female"],
        add=TRUE,cex=0.1,pch=21,col=rgb(0,0,0,1),pt.bg=rgb(0.7,0.7,0.7,1),
        gap=0.00)
+points(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
+       pch=c(22,22,24,21)[carbenfi$popID],col=colov[carbenfi$popID],
+       bg=c("black","white","white","dodgerblue")[carbenfi$popID],
+       add=TRUE,cex=1.5)
+par(op)
+
+
 
 
 plot(sort(as.numeric(as.character(
