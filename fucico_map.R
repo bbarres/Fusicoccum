@@ -1,6 +1,6 @@
 ##############################################################################/
 ##############################################################################/
-#Code for the sampling map of Fusicoccum amygdali
+#Code for the result map of Fusicoccum amygdali population bioassays
 ##############################################################################/
 ##############################################################################/
 
@@ -57,7 +57,7 @@ northarrow <- function(loc,size,bearing=0,cols,cex=1,...) {
 
 
 ##############################################################################/
-#Sampling site and resistance status of the sampled populations####
+#Figure 2: Sampling site and resistance status of the sampled populations####
 ##############################################################################/
 
 #map summarizing the resistant and not resistant populations by department
