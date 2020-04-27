@@ -62,7 +62,7 @@ write.table(CompRez, file="output/results_fusicoIND.txt",
 
 
 ##############################################################################/
-#Figure 2: Distribution of the carbendazim ED50 on isolates (myc. growth)####
+#Figure 3A: Distribution of the carbendazim ED50 on isolates####
 ##############################################################################/
 
 #preparing the dataset, first we replace impossible value to compute by 
@@ -72,8 +72,9 @@ CompRez[is.na(CompRez$ED50),"ED50"]<-100
 CompRez$STERR<-as.numeric(as.character(CompRez$STERR))
 CompRez[is.na(CompRez$STERR),"STERR"]<-0
 
-carbenfi<-CompRez[order(as.numeric(as.character(
-  CompRez[CompRez$Subs_Act=="carbendazim",]$ED50))),]
+carbenfi<-CompRez[CompRez$Subs_Act=="carbendazim",]
+carbenfi<-carbenfi[order(as.numeric(as.character(carbenfi$ED50))),]
+
 #computing the values for the whiskers
 posi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50+
   carbenfi[carbenfi$Subs_Act=="carbendazim",]$STERR
@@ -85,15 +86,16 @@ negi[negi<0]<-0.001
 
 #actual plotting
 op<-par(mar=c(6,6,2,1))
-colov<-c("black","indianred1","black","dodgerblue")
+colov<-c("white","indianred1","black","dodgerblue")
 plot(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
      log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
      ann=FALSE,col=colov[carbenfi$popID],
      bg=c("black","white","white","dodgerblue")[carbenfi$popID],
      pch=c(22,22,24,21)[carbenfi$popID],cex=1.5)
 legend(1,130,col=colov,cex=1.5,x.intersp=0.5,
+       pt.bg=c("black","white","white","dodgerblue"),
        legend=levels(carbenfi$popID),
-       pch=c(15,22,2,19),bty="n")
+       pch=c(22,22,24,21),bty="n")
 box(lwd=2.5,lty=1)
 axis(1,at=c(0,10,20,30,40,50,60),
      labels=c("0","10","20","30","40","50","60"),
@@ -113,15 +115,96 @@ plotCI(c(1:63),
 points(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
        pch=c(22,22,24,21)[carbenfi$popID],col=colov[carbenfi$popID],
        bg=c("black","white","white","dodgerblue")[carbenfi$popID],
-       add=TRUE,cex=1.5)
+       cex=1.5)
 par(op)
+text(-11.1,185,labels="A",cex=4,xpd=TRUE)
+
+#export to .pdf 8 x 6 inches
 
 
+##############################################################################/
+#Figure 3B: Distribution of the diethofencarb ED50 on isolates####
+##############################################################################/
+
+#preparing the dataset, first we replace impossible value to compute by 
+#the highest dose used in the bioassay
+CompRez$ED50<-as.numeric(as.character(CompRez$ED50))
+CompRez[is.na(CompRez$ED50),"ED50"]<-100
+CompRez$STERR<-as.numeric(as.character(CompRez$STERR))
+CompRez[is.na(CompRez$STERR),"STERR"]<-0
+
+diethofe<-CompRez[CompRez$Subs_Act=="diethofencarb",]
+diethofe<-diethofe[order(as.numeric(as.character(diethofe$ED50))),]
 
 
-plot(sort(as.numeric(as.character(
-  CompRez[CompRez$Subs_Act=="diethofencarb",]$ED50))),
-  log="y",las=1,ylim=c(0.01,100))
+#computing the values for the whiskers
+posi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50+
+  diethofe[diethofe$Subs_Act=="diethofencarb",]$STERR
+negi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50-
+  diethofe[diethofe$Subs_Act=="diethofencarb",]$STERR
+#because we can't plot CI that reach negative values in a plot 
+#with a log y-axes, we replace negative value by a very small value
+negi[negi<0]<-0.001
+
+#actual plotting
+op<-par(mar=c(6,6,2,1))
+colov<-c("white","indianred1","black","dodgerblue")
+plot(diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
+     log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
+     ann=FALSE,col=colov[diethofe$popID],
+     bg=c("black","white","white","dodgerblue")[diethofe$popID],
+     pch=c(22,22,24,21)[diethofe$popID],cex=1.5)
+box(lwd=2.5,lty=1)
+axis(1,at=c(0,10,20,30,40,50,60),
+     labels=c("0","10","20","30","40","50","60"),
+     cex.axis=1.5,font.axis=2,lwd.ticks=2)
+axis(2,at=c(0.01,0.1,1,10,100),
+     labels=c("0.01","0.1","1","10","100"),
+     cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
+title(xlab="Isolates arranged by ED50 ascending order",
+      ylab="ED50 (mg/l)",
+      cex.lab=1.8,font.lab=2,line=3.5)
+plotCI(c(1:63),
+       diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
+       ui=posi,li=negi,cex=0.1,pch=21,col=rgb(0,0,0,1),
+       pt.bg=rgb(0.7,0.7,0.7,1),gap=0.00,add=TRUE)
+points(diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
+       pch=c(22,22,24,21)[diethofe$popID],col=colov[diethofe$popID],
+       bg=c("black","white","white","dodgerblue")[diethofe$popID],
+       cex=1.5)
+par(op)
+text(-11.1,185,labels="B",cex=4,xpd=TRUE)
+
+#export to .pdf 8 x 6 inches
+
+
+##############################################################################/
+#Figure 3AC: Correlation between ED50 carbendazim vs diethofencarb####
+##############################################################################/
+
+CarbVsDietho<-merge(carbenfi,diethofe,by="sample_ID")
+
+op<-par(mar=c(6,6,2,1))
+colov<-c("white","indianred1","black","dodgerblue")
+plot(CarbVsDietho$ED50.y~CarbVsDietho$ED50.x,log="xy",bty="n",axes=FALSE,
+     xlim=c(0.01,100),ylim=c(10,100),las=1,ann=FALSE,
+     col=colov[CarbVsDietho$popID.x],
+     bg=c("black","white","white","dodgerblue")[CarbVsDietho$popID.x],
+     pch=c(22,22,24,21)[CarbVsDietho$popID.x],cex=1.5)
+box(lwd=2.5,lty=1)
+axis(1,at=c(0.01,0.1,1,10,100),
+     labels=c("0.01","0.1","1","10","100"),
+     cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
+axis(2,at=c(10,20,40,70,100),
+     labels=c("10","20","40","70","100"),
+     cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
+title(xlab="Carbendazim ED50 (mg/l)",
+      ylab="Diethofencarb ED50 (mg/l)",
+      cex.lab=1.8,font.lab=2,line=3.5)
+par(op)
+text(0.0017,116,labels="C",cex=4,xpd=TRUE)
+
+#export to .pdf 8 x 6 inches
 
 
 ##############################################################################/
