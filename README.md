@@ -6,6 +6,7 @@
 
 
 ## Context
+The constriction canker of peach and almond trees, caused by *Fusicoccum amygdali*, is an important disease which is mainly controled using fungicides. In this study, we report a first case of resistance to carbendazim for this pathogen in France. We first screened a set of populations using bioassay. After identifying a suspect population, isolates were cultivated on medium and tested with a bioassay, confirming the presence of highly resistant phenotypes. A fragment of the beta-tubulin gene isolates displaying resistance or sensitive phenotypes were sequenced. A mutation leading to the E198K substitution was identified in resistant isolates. The population from which resistant isolates have been identified is located in Corsica Island.
 
 
 ## Datasets
