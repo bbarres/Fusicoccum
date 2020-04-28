@@ -36,8 +36,9 @@ These two geographical data files were obtained using the data from the [IGN web
 
 ## R scripts
 + **load_fusico_data.R:** the script to load the different datasets in the R environment. 
-+ **fusico_bioassay.R:** the script to compute the MIC of the populations or the IC50 of the strains. 
-+ **fusico_map.R:** the script for producing the map. 
++ **fusico_bioassay_pop.R:** the script to perform the regression analysis on the populations germination inhibition bioassay results, with carbendazim. It also contains the code for producing Figure 1. 
++ **fusico_bioassay_ind.R:** the script to perform the regression analysis on the individuals growth inhibition bioassay results, with both carbendazim and diethofencarb. It also contains the code for producing Figure 3. 
++ **fusico_map.R:** the script for producing the map (Figure 2). 
 
 
 ## Citation
