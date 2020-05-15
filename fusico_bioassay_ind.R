@@ -85,14 +85,14 @@ negi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50-
 negi[negi<0]<-0.001
 
 #actual plotting
-op<-par(mar=c(6,6,2,1))
+op<-par(mar=c(6.5,7,2,1))
 colov<-c("white","indianred1","black","dodgerblue")
 plot(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
      log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
      ann=FALSE,col=colov[carbenfi$popID],
      bg=c("black","white","white","dodgerblue")[carbenfi$popID],
      pch=c(22,22,24,21)[carbenfi$popID],cex=1.5)
-legend(1,130,col=colov,cex=1.5,x.intersp=0.5,
+legend(1,20,col=colov,cex=1.5,x.intersp=0.5,
        pt.bg=c("black","white","white","dodgerblue"),
        legend=levels(carbenfi$popID),
        pch=c(22,22,24,21),bty="n")
@@ -101,11 +101,11 @@ axis(1,at=c(0,10,20,30,40,50,60),
      labels=c("0","10","20","30","40","50","60"),
      cex.axis=1.5,font.axis=2,lwd.ticks=2)
 axis(2,at=c(0.01,0.1,1,10,100),
-     labels=c("0.01","0.1","1","10","100"),
+     labels=c("0.01","0.1","1","10",">100"),
      cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
-title(xlab="Isolates arranged by ED50 ascending order",
+title(xlab="Isolates arranged by carbendazim\nED50 ascending order",
       ylab="ED50 (mg/l)",
-      cex.lab=1.8,font.lab=2,line=3.5)
+      cex.lab=1.8,font.lab=2,line=5)
 plotCI(c(1:63),
        carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
        ui=posi,
@@ -116,8 +116,9 @@ points(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
        pch=c(22,22,24,21)[carbenfi$popID],col=colov[carbenfi$popID],
        bg=c("black","white","white","dodgerblue")[carbenfi$popID],
        cex=1.5)
+abline(h=50,lty=2,lwd=2)
 par(op)
-text(-11.1,185,labels="A",cex=4,xpd=TRUE)
+text(-13,195,labels="A",cex=4,xpd=TRUE)
 
 #export to .pdf 8 x 6 inches
 
@@ -147,7 +148,7 @@ negi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50-
 negi[negi<0]<-0.001
 
 #actual plotting
-op<-par(mar=c(6,6,2,1))
+op<-par(mar=c(6.5,7,2,1))
 colov<-c("white","indianred1","black","dodgerblue")
 plot(diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
      log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
@@ -161,9 +162,9 @@ axis(1,at=c(0,10,20,30,40,50,60),
 axis(2,at=c(0.01,0.1,1,10,100),
      labels=c("0.01","0.1","1","10","100"),
      cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
-title(xlab="Isolates arranged by ED50 ascending order",
+title(xlab="Isolates arranged by diethofencarb\nED50 ascending order",
       ylab="ED50 (mg/l)",
-      cex.lab=1.8,font.lab=2,line=3.5)
+      cex.lab=1.8,font.lab=2,line=5)
 plotCI(c(1:63),
        diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
        ui=posi,li=negi,cex=0.1,pch=21,col=rgb(0,0,0,1),
@@ -173,13 +174,13 @@ points(diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
        bg=c("black","white","white","dodgerblue")[diethofe$popID],
        cex=1.5)
 par(op)
-text(-11.1,185,labels="B",cex=4,xpd=TRUE)
+text(-13,195,labels="B",cex=4,xpd=TRUE)
 
 #export to .pdf 8 x 6 inches
 
 
 ##############################################################################/
-#Figure 3AC: Correlation between ED50 carbendazim vs diethofencarb####
+#Figure 3C: Correlation between ED50 carbendazim vs diethofencarb####
 ##############################################################################/
 
 CarbVsDietho<-merge(carbenfi,diethofe,by="sample_ID")
@@ -191,6 +192,10 @@ plot(CarbVsDietho$ED50.y~CarbVsDietho$ED50.x,log="xy",bty="n",axes=FALSE,
      col=colov[CarbVsDietho$popID.x],
      bg=c("black","white","white","dodgerblue")[CarbVsDietho$popID.x],
      pch=c(22,22,24,21)[CarbVsDietho$popID.x],cex=1.5)
+legend(8,19,col=colov,cex=1.5,x.intersp=0.5,
+       pt.bg=c("black","white","white","dodgerblue"),
+       legend=levels(carbenfi$popID),
+       pch=c(22,22,24,21),bty="n")
 box(lwd=2.5,lty=1)
 axis(1,at=c(0.01,0.1,1,10,100),
      labels=c("0.01","0.1","1","10","100"),
@@ -202,7 +207,7 @@ title(xlab="Carbendazim ED50 (mg/l)",
       ylab="Diethofencarb ED50 (mg/l)",
       cex.lab=1.8,font.lab=2,line=3.5)
 par(op)
-text(0.0017,116,labels="C",cex=4,xpd=TRUE)
+#text(0.0017,116,labels="C",cex=4,xpd=TRUE)
 
 #export to .pdf 8 x 6 inches
 
