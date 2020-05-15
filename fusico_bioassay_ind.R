@@ -137,7 +137,6 @@ CompRez[is.na(CompRez$STERR),"STERR"]<-0
 diethofe<-CompRez[CompRez$Subs_Act=="diethofencarb",]
 diethofe<-diethofe[order(as.numeric(as.character(diethofe$ED50))),]
 
-
 #computing the values for the whiskers
 posi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50+
   diethofe[diethofe$Subs_Act=="diethofencarb",]$STERR
@@ -180,7 +179,7 @@ text(-13,195,labels="B",cex=4,xpd=TRUE)
 
 
 ##############################################################################/
-#Figure 3C: Correlation between ED50 carbendazim vs diethofencarb####
+#Figure SX: Correlation between ED50 carbendazim vs diethofencarb####
 ##############################################################################/
 
 CarbVsDietho<-merge(carbenfi,diethofe,by="sample_ID")
@@ -192,13 +191,14 @@ plot(CarbVsDietho$ED50.y~CarbVsDietho$ED50.x,log="xy",bty="n",axes=FALSE,
      col=colov[CarbVsDietho$popID.x],
      bg=c("black","white","white","dodgerblue")[CarbVsDietho$popID.x],
      pch=c(22,22,24,21)[CarbVsDietho$popID.x],cex=1.5)
-legend(8,19,col=colov,cex=1.5,x.intersp=0.5,
+abline(v=50,lty=2,lwd=2)
+legend(2,19,col=colov,cex=1.5,x.intersp=0.5,
        pt.bg=c("black","white","white","dodgerblue"),
        legend=levels(carbenfi$popID),
-       pch=c(22,22,24,21),bty="n")
+       pch=c(22,22,24,21),bty="o",box.col="transparent",bg="transparent")
 box(lwd=2.5,lty=1)
 axis(1,at=c(0.01,0.1,1,10,100),
-     labels=c("0.01","0.1","1","10","100"),
+     labels=c("0.01","0.1","1","10",">100"),
      cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
 axis(2,at=c(10,20,40,70,100),
      labels=c("10","20","40","70","100"),
