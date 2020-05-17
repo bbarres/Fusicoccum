@@ -85,14 +85,14 @@ negi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50-
 negi[negi<0]<-0.001
 
 #actual plotting
-op<-par(mar=c(6.5,7,2,1))
+op<-par(mar=c(6.5,7,2,1),mfrow=c(2,1))
 colov<-c("white","indianred1","black","dodgerblue")
 plot(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
      log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
      ann=FALSE,col=colov[carbenfi$popID],
      bg=c("black","white","white","dodgerblue")[carbenfi$popID],
      pch=c(22,22,24,21)[carbenfi$popID],cex=1.5)
-legend(1,20,col=colov,cex=1.5,x.intersp=0.5,
+legend(45,35,col=colov,cex=1.5,x.intersp=0.5,y.intersp=0.4,
        pt.bg=c("black","white","white","dodgerblue"),
        legend=levels(carbenfi$popID),
        pch=c(22,22,24,21),bty="n")
@@ -117,8 +117,7 @@ points(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
        bg=c("black","white","white","dodgerblue")[carbenfi$popID],
        cex=1.5)
 abline(h=50,lty=2,lwd=2)
-par(op)
-text(-13,195,labels="A",cex=4,xpd=TRUE)
+text(-13,195,labels="(a)",cex=3,xpd=TRUE)
 
 #export to .pdf 8 x 6 inches
 
@@ -147,7 +146,6 @@ negi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50-
 negi[negi<0]<-0.001
 
 #actual plotting
-op<-par(mar=c(6.5,7,2,1))
 colov<-c("white","indianred1","black","dodgerblue")
 plot(diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
      log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
@@ -172,10 +170,10 @@ points(diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
        pch=c(22,22,24,21)[diethofe$popID],col=colov[diethofe$popID],
        bg=c("black","white","white","dodgerblue")[diethofe$popID],
        cex=1.5)
+text(-13,195,labels="(b)",cex=3,xpd=TRUE)
 par(op)
-text(-13,195,labels="B",cex=4,xpd=TRUE)
 
-#export to .pdf 8 x 6 inches
+#export to .pdf 8 x 12 inches
 
 
 ##############################################################################/
