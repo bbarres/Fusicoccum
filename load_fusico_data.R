@@ -34,8 +34,10 @@ load("data/regions.Rdata")
 #loading the bioassay results data####
 ##############################################################################/
 
-datafusamy<-read.table("data/fusicodat.txt",header=TRUE,sep="\t")
-datafuspop<-read.table("data/fusipopdat.txt",header=TRUE,sep="\t")
+datafusamy<-read.table("data/fusicodat.txt",header=TRUE,sep="\t",
+                       stringsAsFactors=TRUE)
+datafuspop<-read.table("data/fusipopdat.txt",header=TRUE,sep="\t",
+                       stringsAsFactors=TRUE)
 
 
 ##############################################################################/
