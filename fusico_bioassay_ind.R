@@ -213,3 +213,60 @@ par(op)
 ##############################################################################/
 #END
 ##############################################################################/
+
+
+
+##############################################################################/
+#Regression analysis: carbendazim mycelial growth experiment for isolates####
+##############################################################################/
+
+datafusamyIND<-datatemp[datatemp$strain_type!="population",]
+#first we extract the list of the different SA listed in the file
+SAlist<-levels(datafusamyIND$active_substance)
+CompRez<-data.frame(Subs_Act=factor(),sample_ID=factor(),
+                    ED50=character(),STERR=character())
+#we make a subselection of the data according to the SA
+for (j in 1:length(SAlist)) {
+  data_subSA<-datafusamyIND[datafusamyIND$active_substance==SAlist[j],]
+  
+  #some individual never reach an inhibition of 50%, event for the highest 
+  #tested concentration. 
+  SA_rez<-as.character(data_subSA[data_subSA$dose==max(data_subSA$dose) 
+                                  & data_subSA$perc_croiss>50,
+                                  "strain_ID"])
+  ifelse(length(SA_rez)==0,
+         REZSA<-data.frame(Subs_Act=factor(),sample_ID=factor(),
+                           ED50=character(),STERR=character()),
+         REZSA<-data.frame("Subs_Act"=SAlist[j],"sample_ID"=SA_rez,
+                           "ED50"=paste(">",max(data_subSA$dose),sep=""),
+                           "STERR"="unknown"))
+  #we limit the dataset to the sample that reach somehow a IC of 50%
+  SA.dat<-data_subSA[!(data_subSA$strain_ID %in% SA_rez),]
+  SA.dat<-drop.levels(SA.dat)
+  for (i in 1:dim(table(SA.dat$strain_ID))[1]) {
+    temp.m1<-drm(perc_croiss~dose,
+                 data=SA.dat[SA.dat$strain_ID==
+                               names(table(SA.dat$strain_ID))[i],],
+                 fct=LN.3())
+    plot(temp.m1,ylim=c(0,120),xlim=c(0,150),
+         main=paste(SAlist[j],names(table(SA.dat$strain_ID))[i]),
+         col.main=j)
+    temp<-ED(temp.m1,50,type="absolute")
+    tempx<-data.frame("Subs_Act"=SAlist[j],
+                      "sample_ID"=names(table(SA.dat$strain_ID))[i],
+                      "ED50"=as.character(temp[1]),
+                      "STERR"=as.character(temp[2]))
+    REZSA<-rbind(REZSA,tempx)
+  }
+  CompRez<-rbind(CompRez,REZSA)
+  
+}
+
+#adding a column for the population the individuals were isolated from
+CompRez<-data.frame(CompRez,"popID"=as.factor(substr(CompRez$sample_ID,1,7)))
+#exporting the result as a text file
+write.table(CompRez, file="output/results_fusitemp.txt",
+            sep="\t",quote=FALSE,row.names=FALSE)
+
+
+
