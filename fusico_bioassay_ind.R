@@ -248,7 +248,7 @@ for (j in 1:length(SAlist)) {
                  data=SA.dat[SA.dat$strain_ID==
                                names(table(SA.dat$strain_ID))[i],],
                  fct=LN.3())
-    plot(temp.m1,ylim=c(0,120),xlim=c(0,150),
+    plot(temp.m1,ylim=c(0,120),xlim=c(0,450),
          main=paste(SAlist[j],names(table(SA.dat$strain_ID))[i]),
          col.main=j)
     temp<-ED(temp.m1,50,type="absolute")
