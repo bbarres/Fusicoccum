@@ -28,6 +28,7 @@ library(RColorBrewer)
 #loading the different administrative unit levels in France
 load("data/departe.RData")
 load("data/regions.Rdata")
+load("data/commu.Rdata")
 
 
 ##############################################################################/
