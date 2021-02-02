@@ -99,14 +99,24 @@ par(op)
 
 #export pdf 6 x 6 inches
 
+#actual plotting by commune barycenter
+#extracting the sampled commune
+lisCo<-commu[commu$INSEE_COM %in% c("43033","63453"),]
+lisCo<-as.data.frame(coordinates(lisCo))
+lisCo$Res<-c("S","R")
+op<-par(mar=c(0,0,1,0))
+plot(departe,border="grey80",lwd=0.8,main="")
+plot(regions,add=TRUE,lwd=2)
+points(lisCo[,1:2],col=colovec[as.numeric(as.factor(lisCo$Res))],
+       cex=1.5,pch=c(17,19)[as.numeric(as.factor(lisCo$Res))])
+text(x=coorddep$longitude,y=coorddep$latitude,col="white",font=2,
+     labels=as.character(coorddep$nb_fields),cex=1.3)
+scalebar(c(191260,6060000),300000,"km",division.cex=1)
+par(op)
+
+#export pdf 6 x 6 inches
+
 
 ##############################################################################/
 #END
 ##############################################################################/
-
-
-
-temp<-commu[commu$INSEE_COM %in% c("43033","63453"),]
-
-#the path to access to the barycentre of the commune
-temp@polygons[1][[1]]@labpt
