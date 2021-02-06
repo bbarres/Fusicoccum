@@ -63,7 +63,7 @@ northarrow <- function(loc,size,bearing=0,cols,cex=1,...) {
 #map summarizing the resistant and not resistant populations by department
 temp<-datafuspop
 #colovec<-c(brewer.pal(9,"Blues")[6],brewer.pal(9,"Reds")[6])
-colovec<-c("black","indianred1")
+colovec<-c("grey40","indianred1")
 #first we list the indices of the sampled department
 ind_list<-which(departe@data$INSEE_DEP %in% 
                   colnames(table(temp$carbend_R,temp$departement)))
@@ -101,17 +101,26 @@ par(op)
 
 #actual plotting by commune barycenter
 #extracting the sampled commune
-lisCo<-commu[commu$INSEE_COM %in% c("43033","63453"),]
+lisCo<-commu[commu$INSEE_COM %in% 
+               c("30258","26145","34103","2B057","2B123","26271",
+                 "2A249","2B143","2B042","33550"),]
 lisCo<-as.data.frame(coordinates(lisCo))
-lisCo$Res<-c("S","R")
+lisCo$Res<-c(0,0,0,0,0,1,0,0,0,0)
+lisCo$year<-c(23,24,21,22,21,21,24,21,24,24)
 op<-par(mar=c(0,0,1,0))
 plot(departe,border="grey80",lwd=0.8,main="")
 plot(regions,add=TRUE,lwd=2)
-points(lisCo[,1:2],col=colovec[as.numeric(as.factor(lisCo$Res))],
-       cex=1.5,pch=c(17,19)[as.numeric(as.factor(lisCo$Res))])
-text(x=coorddep$longitude,y=coorddep$latitude,col="white",font=2,
-     labels=as.character(coorddep$nb_fields),cex=1.3)
 scalebar(c(191260,6060000),300000,"km",division.cex=1)
+points(lisCo[,1:2],bg=colovec[lisCo$Res+1],
+       cex=1.2,pch=lisCo$year)
+legend(x=60000,y=7210000,title="Collection year",bty="n",
+       pch=c(23,22,21,24),col="black",cex=1.2,
+       legend=c("1964","2014","2016","2018"),
+       y.intersp=0.8,xpd=TRUE)
+legend(x=850000,y=7210000,title="Resistance status",bty="n",
+       pch=c(22,22),col="black",cex=1.2,pt.bg=colovec,
+       legend=c("sensitive","resistant"),
+       y.intersp=0.8,xpd=TRUE)
 par(op)
 
 #export pdf 6 x 6 inches
