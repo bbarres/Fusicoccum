@@ -112,7 +112,7 @@ plot(departe,border="grey80",lwd=0.8,main="")
 plot(regions,add=TRUE,lwd=2)
 scalebar(c(191260,6060000),300000,"km",division.cex=1)
 points(lisCo[,1:2],bg=colovec[lisCo$Res+1],
-       cex=1.2,pch=lisCo$year)
+       cex=1.6,pch=lisCo$year)
 legend(x=60000,y=7210000,title="Collection year",bty="n",
        pch=c(23,22,21,24),col="black",cex=1.2,
        legend=c("1964","2014","2016","2018"),
