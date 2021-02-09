@@ -16,7 +16,7 @@ datafusamyIND<-datafusamy[datafusamy$strain_type!="population",]
 #first we extract the list of the different SA listed in the file
 SAlist<-levels(datafusamyIND$active_substance)
 CompRez<-data.frame(Subs_Act=factor(),sample_ID=factor(),
-                    ED50=character(),STERR=character())
+                    EC50=character(),STERR=character())
 #we make a subselection of the data according to the SA
 for (j in 1:length(SAlist)) {
   data_subSA<-datafusamyIND[datafusamyIND$active_substance==SAlist[j],]
@@ -28,11 +28,11 @@ for (j in 1:length(SAlist)) {
                                   "strain_ID"])
   ifelse(length(SA_rez)==0,
          REZSA<-data.frame(Subs_Act=factor(),sample_ID=factor(),
-                           ED50=character(),STERR=character()),
+                           EC50=character(),STERR=character()),
          REZSA<-data.frame("Subs_Act"=SAlist[j],"sample_ID"=SA_rez,
-                           "ED50"=paste(">",max(data_subSA$dose),sep=""),
+                           "EC50"=paste(">",max(data_subSA$dose),sep=""),
                            "STERR"="unknown"))
-  #we limit the dataset to the sample that reach somehow a IC of 50%
+  #we limit the dataset to the sample that reach somehow a EC of 50%
   SA.dat<-data_subSA[!(data_subSA$strain_ID %in% SA_rez),]
   SA.dat<-drop.levels(SA.dat)
   for (i in 1:dim(table(SA.dat$strain_ID))[1]) {
@@ -46,7 +46,7 @@ for (j in 1:length(SAlist)) {
     temp<-ED(temp.m1,50,type="absolute")
     tempx<-data.frame("Subs_Act"=SAlist[j],
                       "sample_ID"=names(table(SA.dat$strain_ID))[i],
-                      "ED50"=as.character(temp[1]),
+                      "EC50"=as.character(temp[1]),
                       "STERR"=as.character(temp[2]))
     REZSA<-rbind(REZSA,tempx)
   }
@@ -62,23 +62,23 @@ write.table(CompRez, file="output/results_fusicoIND.txt",
 
 
 ##############################################################################/
-#Figure 3A: Distribution of the carbendazim ED50 on isolates####
+#Figure 3A: Distribution of the carbendazim EC50 on isolates####
 ##############################################################################/
 
 #preparing the dataset, first we replace impossible value to compute by 
 #the highest dose used in the bioassay
-CompRez$ED50<-as.numeric(as.character(CompRez$ED50))
-CompRez[is.na(CompRez$ED50),"ED50"]<-100
+CompRez$EC50<-as.numeric(as.character(CompRez$EC50))
+CompRez[is.na(CompRez$EC50),"EC50"]<-100
 CompRez$STERR<-as.numeric(as.character(CompRez$STERR))
 CompRez[is.na(CompRez$STERR),"STERR"]<-0
 
 carbenfi<-CompRez[CompRez$Subs_Act=="carbendazim",]
-carbenfi<-carbenfi[order(as.numeric(as.character(carbenfi$ED50))),]
+carbenfi<-carbenfi[order(as.numeric(as.character(carbenfi$EC50))),]
 
 #computing the values for the whiskers
-posi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50+
+posi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$EC50+
   carbenfi[carbenfi$Subs_Act=="carbendazim",]$STERR
-negi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50-
+negi<-carbenfi[carbenfi$Subs_Act=="carbendazim",]$EC50-
   carbenfi[carbenfi$Subs_Act=="carbendazim",]$STERR
 #because we can't plot CI that reach negative values in a plot 
 #with a log y-axes, we replace negative value by a very small value
@@ -87,7 +87,7 @@ negi[negi<0]<-0.001
 #actual plotting
 op<-par(mar=c(6.5,7,2,1),mfrow=c(2,1))
 colov<-c("white","indianred1","black","dodgerblue")
-plot(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
+plot(carbenfi[carbenfi$Subs_Act=="carbendazim",]$EC50,
      log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
      ann=FALSE,col=colov[carbenfi$popID],
      bg=c("black","white","white","dodgerblue")[carbenfi$popID],
@@ -103,16 +103,16 @@ axis(1,at=c(0,10,20,30,40,50,60),
 axis(2,at=c(0.01,0.1,1,10,100),
      labels=c("0.01","0.1","1","10",">100"),
      cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
-title(xlab="Isolates arranged by carbendazim\nED50 ascending order",
-      ylab="ED50 (mg/l)",
+title(xlab="Isolates arranged by carbendazim\nEC50 ascending order",
+      ylab="EC50 (mg/l)",
       cex.lab=1.8,font.lab=2,line=5)
 plotCI(c(1:63),
-       carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
+       carbenfi[carbenfi$Subs_Act=="carbendazim",]$EC50,
        ui=posi,
        li=negi,
        add=TRUE,cex=0.1,pch=21,col=rgb(0,0,0,1),pt.bg=rgb(0.7,0.7,0.7,1),
        gap=0.00)
-points(carbenfi[carbenfi$Subs_Act=="carbendazim",]$ED50,
+points(carbenfi[carbenfi$Subs_Act=="carbendazim",]$EC50,
        pch=c(22,22,24,21)[carbenfi$popID],col=colov[carbenfi$popID],
        bg=c("black","white","white","dodgerblue")[carbenfi$popID],
        cex=1.5)
@@ -123,23 +123,23 @@ text(-13,195,labels="(a)",cex=3,xpd=TRUE)
 
 
 ##############################################################################/
-#Figure 3B: Distribution of the diethofencarb ED50 on isolates####
+#Figure 3B: Distribution of the diethofencarb EC50 on isolates####
 ##############################################################################/
 
 #preparing the dataset, first we replace impossible value to compute by 
 #the highest dose used in the bioassay
-CompRez$ED50<-as.numeric(as.character(CompRez$ED50))
-CompRez[is.na(CompRez$ED50),"ED50"]<-100
+CompRez$EC50<-as.numeric(as.character(CompRez$EC50))
+CompRez[is.na(CompRez$EC50),"EC50"]<-100
 CompRez$STERR<-as.numeric(as.character(CompRez$STERR))
 CompRez[is.na(CompRez$STERR),"STERR"]<-0
 
 diethofe<-CompRez[CompRez$Subs_Act=="diethofencarb",]
-diethofe<-diethofe[order(as.numeric(as.character(diethofe$ED50))),]
+diethofe<-diethofe[order(as.numeric(as.character(diethofe$EC50))),]
 
 #computing the values for the whiskers
-posi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50+
+posi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$EC50+
   diethofe[diethofe$Subs_Act=="diethofencarb",]$STERR
-negi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50-
+negi<-diethofe[diethofe$Subs_Act=="diethofencarb",]$EC50-
   diethofe[diethofe$Subs_Act=="diethofencarb",]$STERR
 #because we can't plot CI that reach negative values in a plot 
 #with a log y-axes, we replace negative value by a very small value
@@ -147,7 +147,7 @@ negi[negi<0]<-0.001
 
 #actual plotting
 colov<-c("white","indianred1","black","dodgerblue")
-plot(diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
+plot(diethofe[diethofe$Subs_Act=="diethofencarb",]$EC50,
      log="y",las=1,ylim=c(0.005,100),bty="n",axes=FALSE,
      ann=FALSE,col=colov[diethofe$popID],
      bg=c("black","white","white","dodgerblue")[diethofe$popID],
@@ -159,14 +159,14 @@ axis(1,at=c(0,10,20,30,40,50,60),
 axis(2,at=c(0.01,0.1,1,10,100),
      labels=c("0.01","0.1","1","10","100"),
      cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
-title(xlab="Isolates arranged by diethofencarb\nED50 ascending order",
-      ylab="ED50 (mg/l)",
+title(xlab="Isolates arranged by diethofencarb\nEC50 ascending order",
+      ylab="EC50 (mg/l)",
       cex.lab=1.8,font.lab=2,line=5)
 plotCI(c(1:63),
-       diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
+       diethofe[diethofe$Subs_Act=="diethofencarb",]$EC50,
        ui=posi,li=negi,cex=0.1,pch=21,col=rgb(0,0,0,1),
        pt.bg=rgb(0.7,0.7,0.7,1),gap=0.00,add=TRUE)
-points(diethofe[diethofe$Subs_Act=="diethofencarb",]$ED50,
+points(diethofe[diethofe$Subs_Act=="diethofencarb",]$EC50,
        pch=c(22,22,24,21)[diethofe$popID],col=colov[diethofe$popID],
        bg=c("black","white","white","dodgerblue")[diethofe$popID],
        cex=1.5)
@@ -177,14 +177,14 @@ par(op)
 
 
 ##############################################################################/
-#Figure SX: Correlation between ED50 carbendazim vs diethofencarb####
+#Figure SX: Correlation between EC50 carbendazim vs diethofencarb####
 ##############################################################################/
 
 CarbVsDietho<-merge(carbenfi,diethofe,by="sample_ID")
 
 op<-par(mar=c(6,6,2,1))
 colov<-c("white","indianred1","black","dodgerblue")
-plot(CarbVsDietho$ED50.y~CarbVsDietho$ED50.x,log="xy",bty="n",axes=FALSE,
+plot(CarbVsDietho$EC50.y~CarbVsDietho$EC50.x,log="xy",bty="n",axes=FALSE,
      xlim=c(0.01,100),ylim=c(10,100),las=1,ann=FALSE,
      col=colov[CarbVsDietho$popID.x],
      bg=c("black","white","white","dodgerblue")[CarbVsDietho$popID.x],
@@ -201,8 +201,8 @@ axis(1,at=c(0.01,0.1,1,10,100),
 axis(2,at=c(10,20,40,70,100),
      labels=c("10","20","40","70","100"),
      cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
-title(xlab="Carbendazim ED50 (mg/l)",
-      ylab="Diethofencarb ED50 (mg/l)",
+title(xlab="Carbendazim EC50 (mg/l)",
+      ylab="Diethofencarb EC50 (mg/l)",
       cex.lab=1.8,font.lab=2,line=3.5)
 par(op)
 #text(0.0017,116,labels="C",cex=4,xpd=TRUE)
@@ -224,7 +224,7 @@ datafusamyIND<-datatemp[datatemp$strain_type!="population",]
 #first we extract the list of the different SA listed in the file
 SAlist<-levels(datafusamyIND$active_substance)
 CompRez<-data.frame(Subs_Act=factor(),sample_ID=factor(),
-                    ED50=character(),STERR=character())
+                    EC50=character(),STERR=character())
 #we make a subselection of the data according to the SA
 for (j in 1:length(SAlist)) {
   data_subSA<-datafusamyIND[datafusamyIND$active_substance==SAlist[j],]
@@ -236,9 +236,9 @@ for (j in 1:length(SAlist)) {
                                   "strain_ID"])
   ifelse(length(SA_rez)==0,
          REZSA<-data.frame(Subs_Act=factor(),sample_ID=factor(),
-                           ED50=character(),STERR=character()),
+                           EC50=character(),STERR=character()),
          REZSA<-data.frame("Subs_Act"=SAlist[j],"sample_ID"=SA_rez,
-                           "ED50"=paste(">",max(data_subSA$dose),sep=""),
+                           "EC50"=paste(">",max(data_subSA$dose),sep=""),
                            "STERR"="unknown"))
   #we limit the dataset to the sample that reach somehow a IC of 50%
   SA.dat<-data_subSA[!(data_subSA$strain_ID %in% SA_rez),]
@@ -254,7 +254,7 @@ for (j in 1:length(SAlist)) {
     temp<-ED(temp.m1,50,type="absolute")
     tempx<-data.frame("Subs_Act"=SAlist[j],
                       "sample_ID"=names(table(SA.dat$strain_ID))[i],
-                      "ED50"=as.character(temp[1]),
+                      "EC50"=as.character(temp[1]),
                       "STERR"=as.character(temp[2]))
     REZSA<-rbind(REZSA,tempx)
   }
