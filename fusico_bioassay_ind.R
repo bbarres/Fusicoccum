@@ -9,7 +9,7 @@ source("load_fusico_data.R")
 
 
 ##############################################################################/
-#Regression analysis: carbendazim mycelial growth experiment for isolates####
+#Regression analysis: mycelial growth experiment by individual isolates####
 ##############################################################################/
 
 datafusamyIND<-datafusamy[datafusamy$strain_type!="population",]
