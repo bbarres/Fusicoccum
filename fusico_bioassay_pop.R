@@ -32,7 +32,7 @@ write.table(result_pop, file="output/results_fusicoPOP.txt",
 
 
 ##############################################################################/
-#Figure 1: regression curves for the population bioassays with carbendazim####
+#Figure 2: regression curves for the population bioassays with carbendazim####
 ##############################################################################/
 
 op<-par(mar=c(6,7,2,1))
@@ -40,6 +40,9 @@ colov<-c("black","indianred1")
 plot(temp.m1,xlim=c(0,200),lwd=1.7,col=colov[c(1,1,1,1,2,1,1,1)],
      pch=c(15:17,21:25),lty=c(1:8),
      bty="n",axes=FALSE,ann=FALSE,legend=FALSE)
+plot(temp.m1,xlim=c(0,200),lwd=1.7,col=colov[c(1,1,1,1,2,1,1,1)],
+     pch=c(15:17,21:25),lty=c(1:8),type="bars",
+     bty="n",axes=FALSE,ann=FALSE,legend=FALSE,add=TRUE)
 legend(5,133,col=colov[c(1,1,1,1,2,1,1,1)],
        legend=levels(as.factor(temp.m1$parNames[[3]])),
        lty=c(1:8),lwd=1.7,pch=c(15:17,21:25),bty="n")
