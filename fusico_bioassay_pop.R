@@ -53,7 +53,7 @@ axis(1,at=c(0.001,0.01,0.1,1,10,100),
 axis(2,at=c(0,20,40,60,80,100,120),
      labels=c("0","20","40","60","80","100","120"),
      cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
-title(xlab="Dose (mg/l)",ylab="Relative % of germination",
+title(xlab="Dose (mg/L)",ylab="Relative % of germ tube length",
       cex.lab=2,font.lab=2,line=4)
 par(op)
 
