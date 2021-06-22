@@ -1,4 +1,4 @@
-- Session info --------------------------------------------------------------------
+- Session info ---------------------------------------------------------------------
  setting  value                       
  version  R version 4.0.5 (2021-03-31)
  os       Windows 10 x64              
@@ -8,9 +8,9 @@
  collate  French_France.1252          
  ctype    French_France.1252          
  tz       Europe/Paris                
- date     2021-06-05                  
+ date     2021-06-22                  
 
-- Packages ------------------------------------------------------------------------
+- Packages -------------------------------------------------------------------------
  package      * version  date       lib source                               
  abind          1.4-5    2016-07-21 [1] CRAN (R 4.0.0)                       
  car            3.0-10   2020-09-29 [1] CRAN (R 4.0.2)                       
@@ -26,15 +26,15 @@
  data.table     1.14.0   2021-02-21 [1] CRAN (R 4.0.5)                       
  drc          * 3.1-0    2020-10-18 [1] Github (DoseResponse/drc@8971c52)    
  drcData      * 1.1-2    2020-10-18 [1] Github (DoseResponse/drcData@6523da2)
- e1071          1.7-6    2021-03-18 [1] CRAN (R 4.0.5)                       
+ e1071          1.7-7    2021-05-23 [1] CRAN (R 4.0.5)                       
  ellipsis       0.3.2    2021-04-29 [1] CRAN (R 4.0.5)                       
- fansi          0.4.2    2021-01-15 [1] CRAN (R 4.0.5)                       
+ fansi          0.5.0    2021-05-25 [1] CRAN (R 4.0.5)                       
  forcats        0.5.1    2021-01-27 [1] CRAN (R 4.0.5)                       
  foreign        0.8-81   2020-12-22 [2] CRAN (R 4.0.5)                       
  gdata        * 2.18.0   2017-06-06 [1] CRAN (R 4.0.2)                       
- gtools         3.8.2    2020-03-31 [1] CRAN (R 4.0.0)                       
+ gtools         3.9.2    2021-06-06 [1] CRAN (R 4.0.5)                       
  haven          2.4.1    2021-04-23 [1] CRAN (R 4.0.5)                       
- hms            1.0.0    2021-01-13 [1] CRAN (R 4.0.5)                       
+ hms            1.1.0    2021-05-17 [1] CRAN (R 4.0.5)                       
  KernSmooth     2.23-18  2020-10-29 [2] CRAN (R 4.0.5)                       
  lattice        0.20-41  2020-04-02 [2] CRAN (R 4.0.5)                       
  lifecycle      1.0.0    2021-02-15 [1] CRAN (R 4.0.5)                       
@@ -44,12 +44,12 @@
  Matrix         1.3-2    2021-01-06 [2] CRAN (R 4.0.5)                       
  multcomp       1.4-17   2021-04-29 [1] CRAN (R 4.0.5)                       
  munsell        0.5.0    2018-06-12 [1] CRAN (R 4.0.2)                       
- mvtnorm        1.1-1    2020-06-09 [1] CRAN (R 4.0.0)                       
- openxlsx       4.2.3    2020-10-27 [1] CRAN (R 4.0.5)                       
- pillar         1.6.0    2021-04-13 [1] CRAN (R 4.0.5)                       
+ mvtnorm        1.1-2    2021-06-07 [1] CRAN (R 4.0.5)                       
+ openxlsx       4.2.4    2021-06-16 [1] CRAN (R 4.0.5)                       
+ pillar         1.6.1    2021-05-16 [1] CRAN (R 4.0.5)                       
  pkgconfig      2.0.3    2019-09-22 [1] CRAN (R 4.0.2)                       
  plotrix      * 3.8-1    2021-01-21 [1] CRAN (R 4.0.3)                       
- proxy          0.4-25   2021-03-05 [1] CRAN (R 4.0.5)                       
+ proxy          0.4-26   2021-06-07 [1] CRAN (R 4.0.5)                       
  R6             2.5.0    2020-10-28 [1] CRAN (R 4.0.5)                       
  RColorBrewer * 1.1-2    2014-12-07 [1] CRAN (R 4.0.0)                       
  Rcpp           1.0.6    2021-01-15 [1] CRAN (R 4.0.5)                       
@@ -58,20 +58,20 @@
  rgeos        * 0.5-5    2020-09-07 [1] CRAN (R 4.0.3)                       
  rio            0.5.26   2021-03-01 [1] CRAN (R 4.0.5)                       
  rlang          0.4.11   2021-04-30 [1] CRAN (R 4.0.5)                       
- sandwich       3.0-0    2020-10-02 [1] CRAN (R 4.0.2)                       
+ sandwich       3.0-1    2021-05-18 [1] CRAN (R 4.0.5)                       
  scales         1.1.1    2020-05-11 [1] CRAN (R 4.0.2)                       
  sessioninfo    1.1.1    2018-11-05 [1] CRAN (R 4.0.2)                       
  sp           * 1.4-5    2021-01-10 [1] CRAN (R 4.0.5)                       
- stringi        1.6.1    2021-05-10 [1] CRAN (R 4.0.5)                       
+ stringi        1.6.2    2021-05-17 [1] CRAN (R 4.0.5)                       
  survival       3.2-10   2021-03-16 [2] CRAN (R 4.0.5)                       
  TH.data        1.0-10   2019-01-21 [1] CRAN (R 4.0.2)                       
- tibble         3.1.1    2021-04-18 [1] CRAN (R 4.0.5)                       
- tinytex        0.31     2021-03-30 [1] CRAN (R 4.0.5)                       
+ tibble         3.1.2    2021-05-16 [1] CRAN (R 4.0.5)                       
+ tinytex        0.32     2021-05-29 [1] CRAN (R 4.0.5)                       
  utf8           1.2.1    2021-03-12 [1] CRAN (R 4.0.5)                       
  vctrs          0.3.8    2021-04-29 [1] CRAN (R 4.0.5)                       
  withr          2.4.2    2021-04-18 [1] CRAN (R 4.0.5)                       
- xfun           0.22     2021-03-11 [1] CRAN (R 4.0.5)                       
- zip            2.1.1    2020-08-27 [1] CRAN (R 4.0.2)                       
+ xfun           0.24     2021-06-15 [1] CRAN (R 4.0.5)                       
+ zip            2.2.0    2021-05-31 [1] CRAN (R 4.0.5)                       
  zoo            1.8-9    2021-03-09 [1] CRAN (R 4.0.5)                       
 
 [1] C:/Users/benoi/Documents/R/win-library/4.0
