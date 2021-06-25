@@ -211,13 +211,7 @@ par(op)
 
 
 ##############################################################################/
-#END
-##############################################################################/
-
-
-
-##############################################################################/
-#Regression analysis: carbendazim mycelial growth experiment for isolates####
+#Regression analysis: carbendazim and thiophanate mycelial bioassay####
 ##############################################################################/
 
 datafusamyIND<-datatemp[datatemp$strain_type!="population",]
@@ -269,4 +263,6 @@ write.table(CompRez, file="output/results_fusitemp.txt",
             sep="\t",quote=FALSE,row.names=FALSE)
 
 
-
+##############################################################################/
+#END
+##############################################################################/
