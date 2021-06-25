@@ -42,6 +42,7 @@ datafuspop<-read.table("data/fusipopdat.txt",header=TRUE,sep="\t",
 datatemp<-read.table("data/fusico2020.txt",header=TRUE,sep="\t",
                      stringsAsFactors=TRUE)
 
+
 ##############################################################################/
 #Writing info session for reproducibility####
 ##############################################################################/
