@@ -12,7 +12,7 @@ source("load_fusico_data.R")
 #Regression analysis of percentage of sporulation for the populations####
 ##############################################################################/
 
-#data selection and prepartion
+#data selection and preparation
 datafusamyPOP<-datafusamy[datafusamy$strain_type=="population",]
 datafusamyPOP<-drop.levels(datafusamyPOP)
 
@@ -49,12 +49,12 @@ legend(5,133,col=colov[c(1,1,1,1,2,1,1,1)],
 box(lwd=2.5,lty=1)
 axis(1,at=c(0.001,0.01,0.1,1,10,100),
      labels=c("0","0.01","0.1","1","10","100"),
-     cex.axis=1.5,font.axis=2,lwd.ticks=2)
+     cex.axis=1.1,font.axis=2,lwd.ticks=2)
 axis(2,at=c(0,20,40,60,80,100,120),
      labels=c("0","20","40","60","80","100","120"),
-     cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
+     cex.axis=1.1,font.axis=2,lwd.ticks=2,las=1)
 title(xlab="Dose (mg/L)",ylab="Relative % of germ tube length",
-      cex.lab=2,font.lab=2,line=4)
+      cex.lab=1.5,font.lab=2,line=4)
 par(op)
 
 #export to .pdf 6.5 x 6 inches

@@ -65,7 +65,7 @@ write.table(CompRez, file="output/results_fusicoIND.txt",
 #Figure 3A: Distribution of the carbendazim EC50 on isolates####
 ##############################################################################/
 
-#preparing the dataset, first we replace impossible value to compute by 
+#preparing the data set, first we replace impossible value to compute by 
 #the highest dose used in the bioassay
 CompRez$EC50<-as.numeric(as.character(CompRez$EC50))
 CompRez[is.na(CompRez$EC50),"EC50"]<-100
@@ -99,13 +99,13 @@ legend(45,35,col=colov,cex=1.5,x.intersp=0.5,y.intersp=0.4,
 box(lwd=2.5,lty=1)
 axis(1,at=c(0,10,20,30,40,50,60),
      labels=c("0","10","20","30","40","50","60"),
-     cex.axis=1.5,font.axis=2,lwd.ticks=2)
+     cex.axis=1.3,font.axis=2,lwd.ticks=2)
 axis(2,at=c(0.01,0.1,1,10,100),
      labels=c("0.01","0.1","1","10",">100"),
-     cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
+     cex.axis=1.3,font.axis=2,lwd.ticks=2,las=1)
 title(xlab="Isolates arranged by carbendazim\nEC50 ascending order",
       ylab="EC50 (mg/l)",
-      cex.lab=1.8,font.lab=2,line=5)
+      cex.lab=1.5,font.lab=2,line=5)
 plotCI(c(1:63),
        carbenfi[carbenfi$Subs_Act=="carbendazim",]$EC50,
        ui=posi,
@@ -155,13 +155,13 @@ plot(diethofe[diethofe$Subs_Act=="diethofencarb",]$EC50,
 box(lwd=2.5,lty=1)
 axis(1,at=c(0,10,20,30,40,50,60),
      labels=c("0","10","20","30","40","50","60"),
-     cex.axis=1.5,font.axis=2,lwd.ticks=2)
+     cex.axis=1.3,font.axis=2,lwd.ticks=2)
 axis(2,at=c(0.01,0.1,1,10,100),
      labels=c("0.01","0.1","1","10","100"),
-     cex.axis=1.5,font.axis=2,lwd.ticks=2,las=1)
+     cex.axis=1.3,font.axis=2,lwd.ticks=2,las=1)
 title(xlab="Isolates arranged by diethofencarb\nEC50 ascending order",
       ylab="EC50 (mg/l)",
-      cex.lab=1.8,font.lab=2,line=5)
+      cex.lab=1.5,font.lab=2,line=5)
 plotCI(c(1:63),
        diethofe[diethofe$Subs_Act=="diethofencarb",]$EC50,
        ui=posi,li=negi,cex=0.1,pch=21,col=rgb(0,0,0,1),
