@@ -26,9 +26,9 @@ library(RColorBrewer)
 #https://www.etalab.gouv.fr/wp-content/uploads/2014/05/Licence_Ouverte.pdf
 
 #loading the different administrative unit levels in France
-load("data/departe.RData")
-load("data/regions.Rdata")
-load("data/commu.Rdata")
+load("data/DEP_SHP.RData")
+load("data/REG_SHP.Rdata")
+load("data/COM_SHP.Rdata")
 
 
 ##############################################################################/

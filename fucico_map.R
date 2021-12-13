@@ -65,17 +65,17 @@ temp<-datafuspop
 #colovec<-c(brewer.pal(9,"Blues")[6],brewer.pal(9,"Reds")[6])
 colovec<-c("grey40","indianred1")
 #first we list the indices of the sampled department
-ind_list<-which(departe@data$INSEE_DEP %in% 
+ind_list<-which(DEP_SHP@data$INSEE_DEP %in% 
                   colnames(table(temp$carbend_R,temp$departement)))
 #because of strange departement denomination, we reorder the object
 ind_list<-ind_list[c(3,4,1,2,5)]
 #building the table of barycentre coordinates of the list of department
-coorddep<-data.frame("longitude"=departe@polygons[ind_list[1]][[1]]@labpt[1],
-                     "latitude"=departe@polygons[ind_list[1]][[1]]@labpt[2])
+coorddep<-data.frame("longitude"=DEP_SHP@polygons[ind_list[1]][[1]]@labpt[1],
+                     "latitude"=DEP_SHP@polygons[ind_list[1]][[1]]@labpt[2])
 for (i in 2:length(ind_list)){
   coorddep<-rbind(coorddep, 
-                  c("longitude"=departe@polygons[ind_list[i]][[1]]@labpt[1],
-                    "latitude"=departe@polygons[ind_list[i]][[1]]@labpt[2]))
+                  c("longitude"=DEP_SHP@polygons[ind_list[i]][[1]]@labpt[1],
+                    "latitude"=DEP_SHP@polygons[ind_list[i]][[1]]@labpt[2]))
 }
 coorddep<-cbind(coorddep,"Res"=table(temp$carbend_R,temp$departement)[1,],
                 "nonR"=if(dim(table(temp$carbend_R,temp$departement))[1]==1)
@@ -85,8 +85,8 @@ coorddep<-cbind(coorddep,"Res"=table(temp$carbend_R,temp$departement)[1,],
 
 #actual plotting
 op<-par(mar=c(0,0,1,0))
-plot(departe,border="grey80",lwd=0.8,main="")
-plot(regions,add=TRUE,lwd=2)
+plot(DEP_SHP,border="grey80",lwd=0.8,main="")
+plot(REG_SHP,add=TRUE,lwd=2)
 draw.pie(x=coorddep$longitude,y=coorddep$latitude,
          z=cbind(coorddep$nonR,coorddep$Res),
          col=colovec,lty=0,
@@ -101,15 +101,15 @@ par(op)
 
 #actual plotting by commune barycenter
 #extracting the sampled commune
-lisCo<-commu[commu$INSEE_COM %in% 
-               c("30258","26145","34103","2B057","2B123","26271",
-                 "2A249","2B143","2B042","33550"),]
+lisCo<-COM_SHP[COM_SHP$INSEE_COM %in% 
+                 c("30258","26145","34103","2B057","2B123","26271",
+                   "2A249","2B143","2B042","33550"),]
 lisCo<-as.data.frame(coordinates(lisCo))
 lisCo$Res<-c(0,0,0,0,0,1,0,0,0,0)
 lisCo$year<-c(23,24,21,22,21,21,24,21,24,24)
 op<-par(mar=c(0,0,1,0))
-plot(departe,border="grey80",lwd=0.8,main="")
-plot(regions,add=TRUE,lwd=2)
+plot(DEP_SHP,border="grey80",lwd=0.8,main="")
+plot(REG_SHP,add=TRUE,lwd=2)
 scalebar(c(191260,6060000),300000,"km",division.cex=1)
 points(lisCo[,1:2],bg=colovec[lisCo$Res+1],
        cex=1.6,pch=lisCo$year)
