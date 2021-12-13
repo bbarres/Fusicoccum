@@ -10,13 +10,15 @@ The constriction canker of peach and almond trees, caused by *Fusicoccum amygdal
 
 
 ## Datasets
-There are four datasets used in this study. The files can be found in the "data" folder. 
+There are five data sets used in this study. The files can be found in the "data" folder. 
 
-+ **departe.RDATA:** the first dataset contains geographical information to plot the french administrative layer 'departement'
++ **COM_SHP.RDATA:** the first data set contains geographical information to plot the french administrative layer 'commune'
 
-+ **regions.RDATA:** the second dataset contains geographical information to plot the french administrative layer 'regions'
++ **DEP_SHP.RDATA:** the first data set contains geographical information to plot the french administrative layer 'departement'
 
-These two geographical data files were obtained using the data from the [IGN website](http://professionnels.ign.fr/adminexpress). The version of the data used is the "Edition Novembre 2017". 
++ **REG_SHP.RDATA:** the second data set contains geographical information to plot the french administrative layer 'regions'
+
+These three geographical data files were obtained using the data from the [IGN website](http://professionnels.ign.fr/adminexpress). The version of the data used is the "Edition Novembre 2017". The shapefile were simplified using [mapshaper](https://mapshaper.org/) online tool in order to reduce the size of the files. 
 
 + **fusicodat.txt:** The third dataset contains the results of the dose-response bioassays conducted on populations or isolates. 
   + *strain_ID*: the ID of the population or the strain
