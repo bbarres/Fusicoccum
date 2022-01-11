@@ -46,7 +46,7 @@ These three geographical data files were obtained using the data from the [IGN w
 
 ## Citation
 You can cite the related study as follow: 
-+ Fontaine S, Caddoux L, Remuson F, Barrès B. [Report of a new resistance to carbendazim in *Fusicoccum amygdali*, the causal agent of constriction canker of peach and almond trees. *Accepted for publication in Plant Pathology*](https://bsppjournals.onlinelibrary.wiley.com/doi/10.1111/ppa.13525)
++ Fontaine S, Caddoux L, Remuson F, Barrès B. [Report of a new resistance to carbendazim in *Fusicoccum amygdali*, the causal agent of constriction canker of peach and almond trees. *Accepted for publication in Plant Pathology*.](https://bsppjournals.onlinelibrary.wiley.com/doi/10.1111/ppa.13525)
 
 If you want to use (some of) the code found on this page or if you want to cite this repository: 
 + Benoit Barrès. bbarres/Fusicoccum: [Supporting data and code for: Report of a new resistance to carbendazim in *Fusicoccum amygdali*, the causal agent of constriction canker of peach and almond trees. Zenodo; 2020.](https://zenodo.org/badge/latestdoi/190763363)
